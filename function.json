@@ -1,0 +1,30 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "post", "put", "delete"],
+      "route": "items/{id?}"
+    },
+    { "type": "http", "direction": "out", "name": "$return" }
+  ]
+}
+{
+  "bindings": [
+    { "authLevel": "function", "type": "httpTrigger", "direction": "in", "name": "req", "methods": ["post","get"] },
+    { "type": "http", "direction": "out", "name": "$return" },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputDocument",
+      "databaseName": "storedb",
+      "containerName": "items",
+      "createIfNotExists": false,
+      "connection": "CosmosDBConnection",
+      "partitionKey": "{category}"
+    }
+  ]
+}
